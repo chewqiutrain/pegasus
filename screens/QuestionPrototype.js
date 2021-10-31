@@ -29,12 +29,18 @@ function BottomBarButton({ onPress, title }) {
 }
 
 export default function QuestionPrototype({ route, navigation }) {
-  const { id, questionText,  answerOptions } = route.params;
+  
+  const { activeQuestionId, allQuestions } = route.params 
+  
+  const currentQuestion = allQuestions.find(q => q.id === activeQuestionId)
+  
+  const { id, questionText, answerOptions } = currentQuestion 
 
-  console.log(`questionText: ${questionText} | answerOptions: ${JSON.stringify(answerOptions)}`)
-  const windowWidth = Dimensions.get('window').width;
-  const windowHeight = Dimensions.get('window').height;
+  const isLastQuestion = activeQuestionId === allQuestions.length - 1 
+  const isFirstQuestion = activeQuestionId === 0 
 
+  
+  
   const renderOption = (text) => { 
     return (
       <View style={styles.optionBox}>
@@ -45,10 +51,12 @@ export default function QuestionPrototype({ route, navigation }) {
 
   const previousQuestionPress = () => {
     console.log(`Pressed go to previous question!`)
+    navigation.navigate("QuestionPage", { activeQuestionId: activeQuestionId - 1, allQuestions })
   }
 
   const nextQuestionPress = () => {
     console.log(`Pressed go to next question!`)
+    navigation.navigate("QuestionPage", { activeQuestionId: activeQuestionId + 1, allQuestions })
   }
 
   const clearOptionsSelectedPress = () => {
@@ -57,13 +65,11 @@ export default function QuestionPrototype({ route, navigation }) {
   
   return (
     <View style={styles.container}>
+
       <View style={styles.questionBox}>
         <Text style={styles.questionText}>Question: {questionText}</Text>
       </View>
-      {/* <Text>Option A: {answerOptions["a"]}</Text>
-      <Text>Option B: {answerOptions["b"]}</Text>
-      <Text>Option C: {answerOptions["c"]}</Text>
-      <Text>Option D: {answerOptions["d"]}</Text> */}
+
       <View style={styles.allOptionsBox}>
         {renderOption(answerOptions["a"])}
         {renderOption(answerOptions["b"])}
@@ -72,9 +78,9 @@ export default function QuestionPrototype({ route, navigation }) {
       </View>
 
       <View style={styles.bottomBar}>
-        {BottomBarButton({ onPress: previousQuestionPress, title: "Previous Question" })}
+        {!isFirstQuestion && BottomBarButton({ onPress: previousQuestionPress, title: "Previous Question" })}
         {BottomBarButton({ onPress: clearOptionsSelectedPress, title: "Clear Selected" })}
-        {BottomBarButton({ onPress: nextQuestionPress, title: "Next Question" })}
+        {!isLastQuestion && BottomBarButton({ onPress: nextQuestionPress, title: "Next Question" })}
       </View>
     </View>
   );

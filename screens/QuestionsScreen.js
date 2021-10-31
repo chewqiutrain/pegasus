@@ -29,7 +29,7 @@ export default function QuestionsScreen({ route, navigation }) {
   });
 
 
-  const renderFlatListItem = ({ item }) => (<QuestionListItem questionObj={item} navigation={navigation}/>);
+  const renderFlatListItem = ({ item }) => (<QuestionListItem questionObj={item} allQuestions={allQuestions} navigation={navigation}/>);
 
   
   return (

@@ -1,25 +1,17 @@
 import React, { Component, useState } from 'react';
 import { Dimensions, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-export default function QuestionListItem({ questionObj, navigation }) {
+export default function QuestionListItem({ questionObj, allQuestions, navigation }) {
 
-  const initialWidth = Dimensions.get('window').width;
-  const initialHeight = Dimensions.get('window').height;
-
-  const [windowDimensions, setWindowDimensions] = useState({windowWidth: initialWidth, windowHeight: initialHeight});
+  const activeQuestionId = questionObj.id 
 
   const pressHandler = () => {
     console.log(`Question ${questionObj.id} pressed!`)
-    navigation.navigate("QuestionPage", questionObj)
+    const questionPageParams = {activeQuestionId, allQuestions}
+    console.log(`questionPageParams: ${JSON.stringify(questionPageParams)}`)
+    navigation.navigate("QuestionPage", questionPageParams)
   }
     
-  // useEffect(() => {
-  //   const { width, height } = Dimensions.get('window');
-  //   setWindowDimensions({ windowWidth: width, windowHeight: height});
-  // })
-
-  const WINDOW_WIDTH_OFFSET = 50;
-  const MARGIN_WIDTH = windowDimensions.windowWidth - WINDOW_WIDTH_OFFSET
 
   const styles = StyleSheet.create({
       container: {

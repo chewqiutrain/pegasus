@@ -8,41 +8,22 @@ import TestPage from '../screens/TestPage';
 import QuestionPrototype from '../screens/QuestionPrototype';
 import QuestionsScreen from '../screens/QuestionsScreen';
 
-const questionPageDefaultParams = {
-  questionText: "Default question text",
-  answerOptions: {
-    a: "default answer a",
-    b: "default answer b",
-    c: "default answer c",
-    d: "default answer d"
-  }
+const questionPageDefaultParams = { 
+  activeQuestionId: 0,
+  allQuestions: [
+    {
+      id: 0,
+      questionText: "Default question text",
+      answerOptions: {
+        a: "default answer a",
+        b: "default answer b",
+        c: "default answer c",
+        d: "default answer d"
+      }
+    }
+  ]
 }
 
-// const screens = {
-//   home: {
-//     screen: Home,
-//     navigationOptions: {
-//       title: "Home screen title from screens"
-//     }
-//   },
-//   testPage: {
-//     screen: TestPage,
-//     navigationOptions: {
-//       title: "Test Page"
-//     }
-//   },
-//   questionPage: {
-//     screen: QuestionPrototype,
-//     params: questionPageDefaultParams
-//   }
-// }
-
-// const HomeStack = createStackNavigator(screens, {
-//     defaultNavigationOptions: {
-//         headerTintColor: "black",
-//         headerStyle: { backgroundColor: "teal"}
-//     }
-// })
 
 const Stack = createNativeStackNavigator();
 export default function Navigator() {
